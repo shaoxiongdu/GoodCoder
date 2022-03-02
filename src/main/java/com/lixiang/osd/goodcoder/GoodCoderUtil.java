@@ -1,4 +1,4 @@
-package com.lixiang.goodcoder;
+package com.lixiang.osd.goodcoder;
 
 import java.util.Random;
 
