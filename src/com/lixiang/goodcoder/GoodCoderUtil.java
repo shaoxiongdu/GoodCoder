@@ -1,8 +1,5 @@
-package com.lixiang;
+package com.lixiang.goodcoder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -33,50 +30,68 @@ public class GoodCoderUtil {
     private static final char[] CHARS_TABLE_58 = "0123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz".toCharArray();
 
     /**
-     * 十进制转 34进制
-     * @param number 目标数组
+     * 十进制转 34进制   利用除34取余法
+     * @param number 目标数字
      * @return 结果
      */
     public static String tenToThirtyFour(int number){
 
+        //结果
         StringBuffer result = new StringBuffer();
 
+        //34字母表长度
         int length = CHARS_TABLE_34.length;
 
         while (number > 0) {
+
+            //除34取余数 累加到结果中
             result.insert(0, CHARS_TABLE_34[number % length]);
+            //除34
             number /= length;
         }
+
+        //返回结果
         return result.toString();
     }
 
     /**
-     * 十进制转 58进制
+     * 十进制转 58进制 利用除58取余法
      * @param number 目标数组
      * @return 结果
      */
     public static String tenToFiftyEight(int number){
 
+        //结果
         StringBuffer result = new StringBuffer();
 
+        //58字母表长度
         int length = CHARS_TABLE_58.length;
 
         while (number > 0) {
+
+            //除58取余数 累加到结果中
             result.insert(0, CHARS_TABLE_58[number % length]);
+
+            //除58赋给自己
             number /= length;
         }
+        //返回结果
         return result.toString();
     }
 
     /**
-     *  对X进制的字母表进行打乱
+     *  对X进制的字母表进行打乱  洗牌算法
      * @param array 源字母表
      * @param salt 盐值
      * @return
      */
-    public static void shuffle(char[] array,int salt){
+    public static char[] shuffle(char[] array,int salt){
 
-        //结果数组
+        //临界判断
+        if(array.length == 0){
+            return array;
+        }
+
         for (int i = 0; i < array.length; ++i){
 
             //取不大于数组长度的加盐随机值
@@ -86,6 +101,7 @@ public class GoodCoderUtil {
             swap(array,i,randomIndex);
 
         }
+        return array;
     }
 
     /**
@@ -93,7 +109,12 @@ public class GoodCoderUtil {
      * @param salt 盐
      * @return 随机数
      */
-    public static int saltRandom(int salt,int max){
+    private static int saltRandom(int salt,int max){
+
+        //临界判断
+        if(max <= 0 ){
+            return -1;
+        }
 
         try {
             Thread.sleep(10);
@@ -114,22 +135,18 @@ public class GoodCoderUtil {
      * @param indexX 位置X
      * @param indexY 位置Y
      */
-    public static void swap(char[] src,int indexX,int indexY){
+    private static void swap(char[] src,int indexX,int indexY){
 
         //临界判断
         if(indexX >= src.length && indexY >= src.length){
             return;
         }
 
+        //交换
         char temp = src[indexX];
         src[indexX] = src[indexY];
         src[indexY] = temp;
 
     }
 
-    public static void main(String[] args) {
-
-        System.out.println(tenToThirtyFour(34));
-
-    }
 }
